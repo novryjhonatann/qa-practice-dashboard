@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Latihan - QA Practice Dashboard</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">QA</div>QA Practice</div>
+    <nav class="nav">
+      <a href="/dashboard.html" id="nav-dashboard" data-testid="nav-dashboard">Dashboard</a>
+      <a href="/form.html" class="active" id="nav-form" data-testid="nav-form">Form Latihan</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <h2 id="page-title" data-testid="page-title">Form Latihan Elemen</h2>
+      <div class="user-box">
+        <div class="avatar" id="user-avatar"></div>
+        <div class="user-meta"><div id="user-name" data-testid="user-name"></div><small id="user-role" data-testid="user-role"></small></div>
+        <button class="btn btn-sm" id="btn-logout" data-testid="btn-logout">Keluar</button>
+      </div>
+    </header>
+
+    <section class="content grid-2">
+      <!-- Registration form -->
+      <form class="panel card-pad" id="reg-form" data-testid="reg-form" novalidate>
+        <h3 style="margin-bottom:16px">Form Pendaftaran Karyawan</h3>
+        <div class="field"><label for="r-name">Nama Lengkap *</label><input id="r-name" data-testid="reg-name"><span class="error-text" id="r-name-err" data-testid="reg-name-error"></span></div>
+        <div class="row">
+          <div class="field"><label for="r-email">Email *</label><input id="r-email" type="email" data-testid="reg-email"><span class="error-text" id="r-email-err" data-testid="reg-email-error"></span></div>
+          <div class="field"><label for="r-phone">No. HP</label><input id="r-phone" data-testid="reg-phone" placeholder="08xxxxxxxxxx"><span class="error-text" id="r-phone-err" data-testid="reg-phone-error"></span></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="r-dept">Divisi *</label>
+            <select id="r-dept" data-testid="reg-department">
+              <option value="">-- Pilih Divisi --</option><option>IT</option><option>Quality Assurance</option><option>Finance</option><option>HR</option><option>Marketing</option>
+            </select><span class="error-text" id="r-dept-err" data-testid="reg-department-error"></span></div>
+          <div class="field"><label for="r-join">Tanggal Bergabung</label><input id="r-join" type="date" data-testid="reg-join-date"></div>
+        </div>
+        <div class="field"><label>Jenis Kelamin *</label>
+          <div class="options">
+            <label><input type="radio" name="gender" value="Laki-laki" data-testid="reg-gender-male"> Laki-laki</label>
+            <label><input type="radio" name="gender" value="Perempuan" data-testid="reg-gender-female"> Perempuan</label>
+          </div><span class="error-text" id="r-gender-err" data-testid="reg-gender-error"></span></div>
+        <div class="field"><label>Keahlian</label>
+          <div class="options">
+            <label><input type="checkbox" name="skill" value="Manual Testing" data-testid="reg-skill-manual"> Manual Testing</label>
+            <label><input type="checkbox" name="skill" value="Automation" data-testid="reg-skill-automation"> Automation</label>
+            <label><input type="checkbox" name="skill" value="API Testing" data-testid="reg-skill-api"> API Testing</label>
+            <label><input type="checkbox" name="skill" value="Performance" data-testid="reg-skill-performance"> Performance</label>
+          </div></div>
+        <div class="field"><label for="r-cv">Upload CV (PDF)</label><input id="r-cv" type="file" accept=".pdf" data-testid="reg-cv"></div>
+        <div class="field"><label for="r-notes">Catatan</label><textarea id="r-notes" rows="3" data-testid="reg-notes"></textarea></div>
+        <label class="check"><input type="checkbox" id="r-agree" data-testid="reg-agree"> Saya menyetujui syarat dan ketentuan *</label>
+        <span class="error-text" id="r-agree-err" data-testid="reg-agree-error"></span>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button type="submit" class="btn btn-primary" id="r-submit" data-testid="reg-submit">Daftar</button>
+          <button type="reset" class="btn" id="r-reset" data-testid="reg-reset">Reset</button>
+        </div>
+        <div class="result hidden" id="r-result" data-testid="reg-result" style="margin-top:16px"></div>
+      </form>
+
+      <!-- Other elements -->
+      <div class="stack">
+        <div class="panel card-pad stack">
+          <h3>Alert, Confirm, Prompt</h3>
+          <div class="toolbar">
+            <button class="btn" id="btn-alert" data-testid="btn-alert">JS Alert</button>
+            <button class="btn" id="btn-confirm" data-testid="btn-confirm">JS Confirm</button>
+            <button class="btn" id="btn-prompt" data-testid="btn-prompt">JS Prompt</button>
+          </div>
+          <div id="dialog-result" data-testid="dialog-result">Hasil: -</div>
+        </div>
+
+        <div class="panel card-pad stack">
+          <h3>Elemen Dinamis &amp; Wait</h3>
+          <div class="toolbar">
+            <button class="btn" id="btn-load-dynamic" data-testid="btn-load-dynamic">Muat Data (3 detik)</button>
+            <button class="btn" id="btn-toggle-hidden" data-testid="btn-toggle-hidden">Tampilkan / Sembunyikan</button>
+          </div>
+          <div id="dynamic-area" data-testid="dynamic-area"></div>
+          <div class="alert hidden" id="hidden-box" data-testid="hidden-box" style="background:#ebfbee;color:#2b8a3e">Elemen ini sebelumnya tersembunyi 👋</div>
+          <div><button class="btn" id="btn-enable" data-testid="btn-enable-later" disabled>Aktif dalam 5 detik</button></div>
+        </div>
+
+        <div class="panel card-pad stack">
+          <h3>Hover, Tab Baru, Iframe</h3>
+          <div class="toolbar">
+            <div class="hover-menu" data-testid="hover-menu">
+              <button class="btn">Arahkan mouse ke sini ▾</button>
+              <div class="menu"><a href="#" id="menu-profile" data-testid="menu-profile">Profil</a><a href="#" id="menu-settings" data-testid="menu-settings">Pengaturan</a></div>
+            </div>
+            <a class="btn" href="/dashboard.html" target="_blank" id="link-new-tab" data-testid="link-new-tab">Buka di Tab Baru</a>
+          </div>
+          <div id="hover-result" data-testid="hover-result">Menu dipilih: -</div>
+          <iframe id="practice-frame" data-testid="practice-frame" title="Iframe latihan" style="width:100%;height:90px;border:1px solid var(--line);border-radius:8px"
+            srcdoc="<body style='font-family:Segoe UI;margin:12px'><input id='frame-input' data-testid='frame-input' placeholder='Ketik di dalam iframe'> <button id='frame-btn' data-testid='frame-btn' onclick=&quot;document.getElementById('frame-out').textContent='Isi: '+document.getElementById('frame-input').value&quot;>Kirim</button><div id='frame-out' data-testid='frame-out'></div></body>"></iframe>
+        </div>
+
+        <div class="panel card-pad stack">
+          <h3>Drag &amp; Drop</h3>
+          <div><span class="draggable" draggable="true" id="drag-item" data-testid="drag-item">📦 Seret saya</span></div>
+          <div class="dropzone" id="drop-zone" data-testid="drop-zone">Lepaskan di sini</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast-area" id="toast-area"></div>
+<script src="/common.js"></script>
+<script src="/form.js"></script>
+</body>
+</html>

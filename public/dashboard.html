@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - QA Practice Dashboard</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">QA</div>QA Practice</div>
+    <nav class="nav">
+      <a href="/dashboard.html" class="active" id="nav-dashboard" data-testid="nav-dashboard">Dashboard</a>
+      <a href="/form.html" id="nav-form" data-testid="nav-form">Form Latihan</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <h2 id="page-title" data-testid="page-title">Dashboard Proyek</h2>
+      <div class="user-box">
+        <div class="avatar" id="user-avatar"></div>
+        <div class="user-meta"><div id="user-name" data-testid="user-name"></div><small id="user-role" data-testid="user-role"></small></div>
+        <button class="btn btn-sm" id="btn-logout" data-testid="btn-logout">Keluar</button>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="stats" data-testid="stats">
+        <div class="stat s-total"><div class="label">Total Proyek</div><div class="value" id="stat-total" data-testid="stat-total">-</div></div>
+        <div class="stat s-planning"><div class="label">Planning</div><div class="value" id="stat-planning" data-testid="stat-planning">-</div></div>
+        <div class="stat s-progress"><div class="label">In Progress</div><div class="value" id="stat-progress" data-testid="stat-progress">-</div></div>
+        <div class="stat s-testing"><div class="label">Testing</div><div class="value" id="stat-testing" data-testid="stat-testing">-</div></div>
+        <div class="stat s-done"><div class="label">Done</div><div class="value" id="stat-done" data-testid="stat-done">-</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Daftar Proyek</h3>
+          <div class="toolbar">
+            <input id="search" data-testid="input-search" placeholder="Cari nama, kode, atau PIC...">
+            <select id="filter-status" data-testid="select-filter-status">
+              <option value="">Semua Status</option>
+              <option>Planning</option><option>In Progress</option><option>Testing</option><option>Done</option>
+            </select>
+            <button class="btn btn-primary" id="btn-add" data-testid="btn-add-project">+ Tambah Proyek</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <div class="loading hidden" id="loading" data-testid="loading"><div class="spinner"></div></div>
+          <table id="project-table" data-testid="project-table">
+            <thead>
+              <tr>
+                <th data-sort="code">Kode <span class="arrow"></span></th>
+                <th data-sort="name">Nama Proyek <span class="arrow"></span></th>
+                <th data-sort="owner">PIC <span class="arrow"></span></th>
+                <th data-sort="status">Status <span class="arrow"></span></th>
+                <th data-sort="priority">Prioritas <span class="arrow"></span></th>
+                <th data-sort="progress">Progres <span class="arrow"></span></th>
+                <th data-sort="dueDate">Tenggat <span class="arrow"></span></th>
+                <th class="no-sort">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="project-rows" data-testid="project-rows"></tbody>
+          </table>
+        </div>
+
+        <div class="panel-foot">
+          <span id="table-info" data-testid="table-info"></span>
+          <div class="pager">
+            <button class="btn btn-sm" id="btn-prev" data-testid="btn-prev-page">‹ Sebelumnya</button>
+            <span id="page-info" data-testid="page-info"></span>
+            <button class="btn btn-sm" id="btn-next" data-testid="btn-next-page">Berikutnya ›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Add / edit modal -->
+<div class="modal-backdrop hidden" id="project-modal" data-testid="project-modal">
+  <form class="modal" id="project-form" data-testid="project-form" novalidate>
+    <div class="modal-head">
+      <h3 id="modal-title" data-testid="modal-title">Tambah Proyek</h3>
+      <button type="button" class="icon-btn" id="btn-close-modal" data-testid="btn-close-modal" aria-label="Tutup">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="field"><label for="f-code">Kode Proyek *</label><input id="f-code" data-testid="input-code" placeholder="PRJ-013"><span class="error-text" id="err-code" data-testid="error-code"></span></div>
+        <div class="field"><label for="f-owner">PIC *</label><input id="f-owner" data-testid="input-owner" placeholder="Nama penanggung jawab"><span class="error-text" id="err-owner" data-testid="error-owner"></span></div>
+      </div>
+      <div class="field"><label for="f-name">Nama Proyek *</label><input id="f-name" data-testid="input-name" placeholder="Contoh: Aplikasi Kasir Toko"><span class="error-text" id="err-name" data-testid="error-name"></span></div>
+      <div class="row">
+        <div class="field"><label for="f-status">Status *</label>
+          <select id="f-status" data-testid="select-status"><option>Planning</option><option>In Progress</option><option>Testing</option><option>Done</option></select>
+          <span class="error-text" id="err-status" data-testid="error-status"></span></div>
+        <div class="field"><label for="f-priority">Prioritas *</label>
+          <select id="f-priority" data-testid="select-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
+          <span class="error-text" id="err-priority" data-testid="error-priority"></span></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-progress">Progres (%) *</label><input id="f-progress" type="number" min="0" max="100" value="0" data-testid="input-progress"><span class="error-text" id="err-progress" data-testid="error-progress"></span></div>
+        <div class="field"><label for="f-due">Tenggat *</label><input id="f-due" type="date" data-testid="input-due-date"><span class="error-text" id="err-dueDate" data-testid="error-due-date"></span></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn" id="btn-cancel" data-testid="btn-cancel">Batal</button>
+      <button type="submit" class="btn btn-primary" id="btn-save" data-testid="btn-save">Simpan</button>
+    </div>
+  </form>
+</div>
+
+<!-- Delete confirm modal (custom, not native confirm) -->
+<div class="modal-backdrop hidden" id="delete-modal" data-testid="delete-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head"><h3>Hapus Proyek</h3></div>
+    <div class="modal-body"><p id="delete-text" data-testid="delete-text"></p></div>
+    <div class="modal-foot">
+      <button class="btn" id="btn-delete-cancel" data-testid="btn-delete-cancel">Batal</button>
+      <button class="btn btn-danger" id="btn-delete-confirm" data-testid="btn-delete-confirm">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-area" id="toast-area"></div>
+<script src="/common.js"></script>
+<script src="/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - QA Practice Dashboard</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <main class="login-page">
+    <form class="login-card" id="login-form" data-testid="login-form" novalidate>
+      <div class="brand"><div class="logo">QA</div><h1>QA Practice</h1></div>
+      <p class="sub">Silakan masuk untuk melanjutkan</p>
+
+      <div class="alert alert-error hidden" id="login-error" data-testid="login-error" role="alert"></div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" data-testid="input-username" placeholder="Masukkan username" autocomplete="username">
+        <span class="error-text" id="username-error" data-testid="username-error"></span>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input id="password" name="password" type="password" data-testid="input-password" placeholder="Masukkan password" autocomplete="current-password">
+          <button type="button" class="pw-toggle" id="btn-toggle-password" data-testid="btn-toggle-password">Lihat</button>
+        </div>
+        <span class="error-text" id="password-error" data-testid="password-error"></span>
+      </div>
+      <label class="check"><input type="checkbox" id="remember-me" data-testid="checkbox-remember"> Ingat saya</label>
+
+      <button type="submit" class="btn btn-primary" id="btn-login" data-testid="btn-login">Masuk</button>
+
+      <div class="hint" data-testid="login-hint">
+        <b>Akun latihan:</b><br>
+        admin / admin123 &nbsp;·&nbsp; tester / tester123<br>
+        locked / locked123 <i>(akun terkunci)</i>
+      </div>
+    </form>
+  </main>
+  <script src="/login.js"></script>
+</body>
+</html>
